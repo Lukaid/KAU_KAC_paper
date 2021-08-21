@@ -43,6 +43,8 @@ for i in range(len(day_start)):
     for i in covid_news_list:
         covid_news_list_url.append(i.get('href'))
 
+    print(f"url 수집 완료({len(covid_news_list_url)}개), 기사 추출 시작")
+
     # 뉴스 본문 모으기
     news_list = []
     for url in covid_news_list_url:
@@ -61,11 +63,11 @@ for i in range(len(day_start)):
             news_list.append(news_dict)
         except:
             # 네이버 기사 포맷으로 제공되지만 에러가 발생한 URL
-            print(f'오류 발생, {start}_{end}의 {i}번째')
+            print(f'오류 발생, {url}')
             error_url.append(url)
             pass
 
     article_list = pd.DataFrame(news_list)
-    article_list.to_csv(f'article/article_list_{start}_{end}.csv', encoding='utf-8-sig')
+    article_list.to_csv(f'naver_article/article_list_{start}_{end}.csv', encoding='utf-8-sig')
     print(f'naver_article/article_list_{start}_{end}: 완료')
     print(f'기사 개수: {len(news_list)}')
